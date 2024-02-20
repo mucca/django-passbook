@@ -13,7 +13,7 @@ class PassTypeConverter:
     def to_url(self, value):
         return value
 
-register_converter(FourDigitYearConverter, "passtype")
+register_converter(PassTypeConverter, "passtype")
 
 urlpatterns = [
     path('v1/devices/<slug:device_library_id>/registrations/<passtype:pass_type_id>/<slug:serial_number>', register_pass),
