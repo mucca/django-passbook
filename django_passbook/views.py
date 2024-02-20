@@ -1,5 +1,5 @@
 import json
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import condition
 from django_passbook.models import Pass, Registration, Log
@@ -13,6 +13,7 @@ pass_registered = django.dispatch.Signal()
 pass_unregistered = django.dispatch.Signal()
 
 
+@csrf_exempt
 def registrations(request, device_library_id, pass_type_id):
     """
     Gets the Serial Numbers for Passes Associated with a Device
@@ -37,10 +38,7 @@ def registrations(request, device_library_id, pass_type_id):
         ]
         response_data = {'lastUpdated': last_updated.strftime(
             FORMAT), 'serialNumbers': serial_numbers}
-        return HttpResponse(
-            json.dumps(response_data),
-            mimetype="application/json"
-        )
+        return JsonResponse(response_data)
     else:
         return HttpResponse(status=204)
 
