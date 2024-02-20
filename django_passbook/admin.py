@@ -17,6 +17,9 @@ push_update.short_description = "Send a push notification to update Pass"
 class RegistrationAdmin(admin.ModelAdmin):
     actions = [push_update]
 
+class LogAdmin(admin.ModelAdmin):
+    list_display = ('id', 'message')
+
 admin.site.register(Pass)
 admin.site.register(Registration, RegistrationAdmin)
-admin.site.register(Log)
+admin.site.register(Log, LogAdmin)
